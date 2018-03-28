@@ -1,0 +1,48 @@
+const ndarray = require('ndarray');
+// const draw = require('./draw.js')
+
+
+/**
+ * Load image from local directory, then draw on canvas
+ * 
+ * @param {Imazing Props} props 
+ */
+const load = props => {
+    if (input.files[0].type.search(/image/g) == false) {
+        let reader = new FileReader();
+        // When file reading is successfully completed
+        reader.onload = function () {
+            let img = new Image();
+            // When image is completely loaded into originalImage
+            img.onload = function () {
+                props.c.width = img.width;
+                props.c.height = img.height;
+
+                props.ctx.drawImage(img, 0, 0)
+
+                // Get image matrix
+                // props.imx = props.ctx.getImageData(0, 0, c.width;
+                let imageData = props.ctx.getImageData(0, 0, img.width, img.height)
+                let shape = [imageData.width, imageData.height, 4]
+                let stride = [imageData.width * 4, 4, 1]
+
+                props.oimx = new ndarray(new Uint8Array(imageData.data), shape, stride, 0)
+                props.imx = props.oimx
+
+                console.log(props)
+                console.log("Image drawed.");
+            }
+            // load reader result into img
+            img.src = reader.result;
+            console.log("Image loaded.");
+          
+        }
+        // Read image file as dataURL
+        reader.readAsDataURL(props.i.files[0]);
+    } else {
+        console.log('Input ONLY image type file')
+        return null
+    }
+}
+
+module.exports = load
