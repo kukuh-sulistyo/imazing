@@ -4,14 +4,17 @@
 // var chartjs = require('chart.js')
 
 // Libs
-const load = require('./load.js') 
+const load = require('./load.js')
+const grayscale = require('./grayscale.js')
+const draw = require('./draw.js')
+
+const coba = require('./coba.js')
 
 let props = {
-    oimx: null, // originalImageMatrix
-    imx: null, // working imageMatrix
-    c: null, // canvas
-    ctx: null, // canvas's 2D context
-    i: null // <input type="file">
+    oimx: null, // {ndarray} original image matrix
+    imx: null, // {ndarray} working image matrix
+    c: null, // {<canvas>} canvas
+    i: null // {<input type="file">}
 }
 
 /**
@@ -22,11 +25,9 @@ let props = {
 */
 function create(canvas, input) {
     props.c = canvas
-    props.ctx =  props.c.getContext('2d')
-    props.oimx = props.ctx.getImageData(0, 0, props.c.width, props.c.height)
-    props.imx = props.oimx
+    props.oimx = {}
+    props.imx = {}
     props.i = input
-    // console.log(props)
 }
 
 
@@ -38,6 +39,10 @@ const expose = {
     create: create,
     load: function() {
         load(props)
+        console.log(props)
+    },
+    coba: function() {
+        grayscale(props)
     }
 }
 module.exports = expose;

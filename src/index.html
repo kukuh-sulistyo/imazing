@@ -31,6 +31,10 @@
                 <button type="button" id="histogram" class="btn effect">Get Histogram</button>
                 <canvas id="histogramCanvas"></canvas>
             </div>
+            <div class="btn-group">
+                <p class="head">Coba</p>
+                <button type="button" id="coba" class="btn">Coba</button>
+            </div>
         </aside>
     </div>
 
@@ -44,6 +48,9 @@
         
         // Initializing Imazing
         Imazing.create(canvas, input)
+
+        // Coba
+        document.getElementById('coba').addEventListener('click', Imazing.coba)
 
         // Load
         document.getElementById('btnInput').addEventListener('change', Imazing.load)

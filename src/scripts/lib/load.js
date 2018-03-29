@@ -1,5 +1,7 @@
 const ndarray = require('ndarray');
-// const draw = require('./draw.js')
+const read = require('./read.js')
+
+
 
 
 /**
@@ -7,7 +9,7 @@ const ndarray = require('ndarray');
  * 
  * @param {Imazing Props} props 
  */
-const load = props => {
+const load = function(props) {
     if (input.files[0].type.search(/image/g) == false) {
         let reader = new FileReader();
         // When file reading is successfully completed
@@ -18,18 +20,12 @@ const load = props => {
                 props.c.width = img.width;
                 props.c.height = img.height;
 
-                props.ctx.drawImage(img, 0, 0)
+                props.c.getContext("2d").drawImage(img, 0, 0)
 
                 // Get image matrix
-                // props.imx = props.ctx.getImageData(0, 0, c.width;
-                let imageData = props.ctx.getImageData(0, 0, img.width, img.height)
-                let shape = [imageData.width, imageData.height, 4]
-                let stride = [imageData.width * 4, 4, 1]
-
-                props.oimx = new ndarray(new Uint8Array(imageData.data), shape, stride, 0)
+                props.oimx = read(props)
                 props.imx = props.oimx
-
-                console.log(props)
+                
                 console.log("Image drawed.");
             }
             // load reader result into img

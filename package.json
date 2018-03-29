@@ -36,6 +36,7 @@
   },
   "dependencies": {
     "cwise": "^1.0.10",
-    "ndarray": "^1.0.18"
+    "ndarray": "^1.0.18",
+    "save-pixels": "^2.3.4"
   }
 }
