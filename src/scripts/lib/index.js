@@ -39,9 +39,8 @@ const expose = {
     create: create,
     load: function() {
         load(props)
-        console.log(props)
     },
-    coba: function() {
+    grayscale: function() {
         grayscale(props)
     }
 }

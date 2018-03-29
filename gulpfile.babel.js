@@ -5,7 +5,6 @@ import del from 'del';
 import autoprefixer from 'gulp-autoprefixer';
 import sourcemaps from 'gulp-sourcemaps';
 import log from 'gulplog';
-import babel from 'gulp-babel';
 import plumber from 'gulp-plumber';
 import uglify from 'gulp-uglify';
 import useref from 'gulp-useref';
@@ -22,6 +21,7 @@ const bs = browserSync.create();
 
 // Variables
 // -----
+const bundleFile = "imazing"
 const dirs = {
     src: 'src/',
     temp: '.tmp/',
@@ -61,39 +61,12 @@ export const css = () => gulp.src(paths.src.styles + '**/*.css')
     .pipe(gulp.dest(paths.temp.styles))
     .pipe(bs.stream());
 
-
-// Transpile javascripts using Babel and move those into temp folder
+// Handle javascripts
 // -----
-// export const scripts = () => gulp.src(paths.src.scripts + '**/*.js')
-//     .pipe(plumber())
-//     .pipe(babel())
-//     .pipe(plumber.stop())
-//     .pipe(gulp.dest(paths.temp.scripts))
-//     .pipe(bs.stream());
-
-// export const scripts = () => {
-//     let b = browserify({
-//         entries: './src/scripts/main.js',
-//         debug: true,
-//         transform: [babelify]
-//     });
-
-//     return b.bundle()
-//         .pipe(source('bundle.js'))
-//         .pipe(buffer())
-//         .pipe(sourcemaps.init({loadMaps: true}))
-//             .on('error', log.error)
-//         .pipe(sourcemaps.write('./'))
-//         .pipe(gulp.dest(paths.temp.scripts))
-//         .pipe(bs.stream());
-// }
-
-
-
 let customOpts = {
     entries: './src/scripts/main.js',
     debug: true,
-    transform: [babelify],
+    transform: [babelify]
 };
 let opts = assign({}, watchify.args, customOpts);
 let b = watchify(browserify(opts, {standalone: 'Imazing'})); 
@@ -101,7 +74,7 @@ export const scripts = () => {
     return b.bundle()
         // log errors if they happen
         .on('error', log.error.bind(log, 'Browserify Error'))
-        .pipe(source('bundle.js'))
+        .pipe(source(bundleFile + '.js'))
         // optional, remove if you don't need to buffer file contents
         .pipe(buffer())
         // optional, remove if you dont want sourcemaps
@@ -149,6 +122,6 @@ export const build = gulp.series(clean, gulp.parallel(scripts, scss, css, images
     return gulp.src(dirs.src + "*.html")
         .pipe(useref({searchPath: [dirs.temp, dirs.src]}))
         .pipe(gulpif('*.css', cleanCSS()))
-        .pipe(gulpif('*.js', uglify()))
+        // .pipe(gulpif('*.js', uglify()))
         .pipe(gulp.dest(dirs.dist))
 });
