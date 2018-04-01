@@ -4,6 +4,7 @@ const draw = require('./draw.js')
 const read = require('./read.js')
 const grayscale = require('./grayscale.js')
 const brighten = require('./brighten.js')
+const inverse = require('./inverse.js')
 const coba = require('./coba.js')
 
 let props = {
@@ -35,15 +36,19 @@ const expose = {
     load: function() {
         load(props)
     },
+    reset: function() {
+        draw(props.c, props.oimx)
+        props.imx = read(props)
+    },
     grayscale: function() {
         grayscale(props)
     },
     brighten: function(f = "sum", s) {
         brighten(props, f, s)
     },
-    reset: function() {
-        draw(props.c, props.oimx)
-        props.imx = read(props)
+    inverse: function() {
+        inverse(props)
+        console.log('asdf')
     },
     coba: function() {
         // brighten(props, 100)

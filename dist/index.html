@@ -16,8 +16,8 @@
         <aside>
             <div class="btn-group">
                 <p class="head">Load</p>
-                <input type="file" id="btnInput">
-                <label for="btnInput" class="btn">Load Image</label>
+                <input type="file" id="load">
+                <label for="load" class="btn">Load Image</label>
             </div> 
             <div class="btn-group">
                 <p class="head">Grayscale</p>
@@ -36,6 +36,10 @@
                 </div>
             </div>
             <div class="btn-group">
+                <p class="head">Invers</p>
+                <button type="button" id="inverse" class="btn effect">Inverse</button>
+            </div>
+            <div class="btn-group">
                 <p class="head">Coba</p>
                 <button type="button" id="coba" class="btn">Coba</button>
                 <button type="button" id="coba2" class="btn">Print</button>
@@ -49,14 +53,14 @@
         console.log('HI')
         // console.log(Imazing())
         var input, canvas, context;
-        input = document.getElementById('btnInput');
+        input = document.getElementById('load');
         canvas = document.getElementById('canvas');
         
         // Initializing Imazing
         Imazing.create(canvas, input)
 
         // Load
-        document.getElementById('btnInput').addEventListener('change', Imazing.load)
+        document.getElementById('load').addEventListener('change', Imazing.load)
 
         // Reset
         document.getElementById('reset').addEventListener('click', Imazing.reset)
@@ -79,9 +83,11 @@
             Imazing.brighten("mult", .5);
         })
 
-
         // Grayscale
         document.getElementById('btnGrayscale').addEventListener('click', Imazing.grayscale)
+
+        // Inverse
+        document.getElementById('inverse').addEventListener('click', Imazing.inverse)
        
     </script>
 </body>

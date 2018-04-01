@@ -1,4 +1,4 @@
-const ndarray = require('ndarray');
+const ndarray = require('ndarray')
 const read = require('./read.js')
 
 /**

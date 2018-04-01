@@ -1,5 +1,4 @@
 const cwise = require('cwise')
-const ndarray = require('ndarray')
 const draw = require('./draw.js')
 
 // Brighten with Sumation function

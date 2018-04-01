@@ -122,10 +122,10 @@ p {
 }
 
 // CUSTOM STYLES
-#btnInput { display: none; }
-#btnReset {
+#load { display: none; }
+#reset {
     background-color: rgb(207, 33, 2);
 }
 
-#brightenAUp,
-#brightenBUp { order: 1; }
+#brightenSumUp,
+#brightenMultUp { order: 1; }
