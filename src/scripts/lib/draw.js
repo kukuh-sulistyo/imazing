@@ -4,7 +4,6 @@ const savePixels = require('save-pixels')
  * Draw image on canvas
  * 
  * @param {<canvas>} canvas 
- * @param {CanvasRenderingContext2D} context 
  * @param {ndarray} imx 
  */
 

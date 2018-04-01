@@ -17,6 +17,7 @@ import babelify from 'babelify';
 import { assign } from 'lodash';
 import watchify from 'watchify';
 import browserSync from 'browser-sync';
+
 const bs = browserSync.create();
 
 // Variables
@@ -122,6 +123,6 @@ export const build = gulp.series(clean, gulp.parallel(scripts, scss, css, images
     return gulp.src(dirs.src + "*.html")
         .pipe(useref({searchPath: [dirs.temp, dirs.src]}))
         .pipe(gulpif('*.css', cleanCSS()))
-        // .pipe(gulpif('*.js', uglify()))
+        // .pipe(gulpif('*.js', uglify())) // TODO: fix GulpUglifyError
         .pipe(gulp.dest(dirs.dist))
 });

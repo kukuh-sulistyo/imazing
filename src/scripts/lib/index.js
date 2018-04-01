@@ -1,13 +1,9 @@
-// Vendors
-// const nj = require('numjs')
-// var cwise = require('cwise')
-// var chartjs = require('chart.js')
-
 // Libs
 const load = require('./load.js')
-const grayscale = require('./grayscale.js')
 const draw = require('./draw.js')
-
+const read = require('./read.js')
+const grayscale = require('./grayscale.js')
+const brighten = require('./brighten.js')
 const coba = require('./coba.js')
 
 let props = {
@@ -30,7 +26,6 @@ function create(canvas, input) {
     props.i = input
 }
 
-
 /**
 * Exposing modules to global
 * Available globally in "Imazing" 
@@ -42,6 +37,22 @@ const expose = {
     },
     grayscale: function() {
         grayscale(props)
+    },
+    brighten: function(f = "sum", s) {
+        brighten(props, f, s)
+    },
+    reset: function() {
+        draw(props.c, props.oimx)
+        props.imx = read(props)
+    },
+    coba: function() {
+        // brighten(props, 100)
+
+        draw(props.c, props.imx)
+    },
+    coba2: function() {
+        console.warn(props.oimx)
+        console.warn(props.imx)
     }
 }
 module.exports = expose;

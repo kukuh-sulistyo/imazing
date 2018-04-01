@@ -1,9 +1,6 @@
 const ndarray = require('ndarray');
 const read = require('./read.js')
 
-
-
-
 /**
  * Load image from local directory, then draw on canvas
  * 
@@ -24,7 +21,7 @@ const load = function(props) {
 
                 // Get image matrix
                 props.oimx = read(props)
-                props.imx = props.oimx
+                props.imx = read(props)
                 
                 console.log("Image drawed.");
             }

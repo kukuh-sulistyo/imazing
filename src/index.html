@@ -27,14 +27,24 @@
                 <button type="button" id="btnGrayscale" class="btn effect">Grayscale</button>
             </div>
             <div class="btn-group">
-                <p class="head">Histogram</p>
-                <button type="button" id="histogram" class="btn effect">Get Histogram</button>
-                <canvas id="histogramCanvas"></canvas>
+                <div class="flex">
+                    <p class="head">Brightness: add/subtract</p>
+                    <button type="button" data-bright="10" id="brightenSumUp" class="btn">+</button>
+                    <button type="button" data-bright="-10" id="brightenSumDown" class="btn">-</button>
+                </div>
+                <div class="flex">
+                    <p class="head">Brightness: multiplicate/divide</p>
+                    <button type="button" data-bright="2" id="brightenMultUp" class="btn">+</button>
+                    <button type="button" data-bright="0.5" id="brightenMultDown" class="btn">-</button>
+                </div>
             </div>
             <div class="btn-group">
                 <p class="head">Coba</p>
                 <button type="button" id="coba" class="btn">Coba</button>
+                <button type="button" id="coba2" class="btn">Print</button>
             </div>
+
+            <button id="reset" class="btn">Reset</button>
         </aside>
     </div>
     <!-- build:js js/imazing.min.js -->
@@ -50,11 +60,30 @@
         // Initializing Imazing
         Imazing.create(canvas, input)
 
-        // Coba
-        document.getElementById('coba').addEventListener('click', Imazing.coba)
-
         // Load
         document.getElementById('btnInput').addEventListener('change', Imazing.load)
+
+        // Reset
+        document.getElementById('reset').addEventListener('click', Imazing.reset)
+
+        // Coba
+        document.getElementById('coba').addEventListener('click', Imazing.coba)
+        document.getElementById('coba2').addEventListener('click', Imazing.coba2)
+
+        // Brighteness
+        document.getElementById('brightenSumUp').addEventListener('click', function() {
+            Imazing.brighten("sum", 5);
+        })
+        document.getElementById('brightenSumDown').addEventListener('click', function() {
+            Imazing.brighten("sum", -5);
+        })
+        document.getElementById('brightenMultUp').addEventListener('click', function() {
+            Imazing.brighten("mult", 1.5);
+        }) 
+        document.getElementById('brightenMultDown').addEventListener('click', function() {
+            Imazing.brighten("mult", .5);
+        })
+
 
         // Grayscale
         document.getElementById('btnGrayscale').addEventListener('click', Imazing.grayscale)
