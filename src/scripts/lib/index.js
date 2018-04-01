@@ -5,7 +5,9 @@ const read = require('./read.js')
 const grayscale = require('./grayscale.js')
 const brighten = require('./brighten.js')
 const inverse = require('./inverse.js')
+const flip = require('./flip.js')
 const coba = require('./coba.js')
+
 
 let props = {
     oimx: null, // {ndarray} original image matrix
@@ -25,6 +27,8 @@ function create(canvas, input) {
     props.oimx = {}
     props.imx = {}
     props.i = input
+
+    coba()
 }
 
 /**
@@ -50,14 +54,12 @@ const expose = {
         inverse(props)
         console.log('asdf')
     },
-    coba: function() {
+    cek: function() {
         // brighten(props, 100)
-
-        draw(props.c, props.imx)
+        coba()
     },
     coba2: function() {
-        console.warn(props.oimx)
-        console.warn(props.imx)
+        flip(props)
     }
 }
 module.exports = expose;
