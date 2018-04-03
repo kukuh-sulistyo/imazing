@@ -8,38 +8,32 @@ const inverse = require('./inverse.js')
 const flip = require('./flip.js')
 const coba = require('./coba.js')
 
-
+// Imazing property
 let props = {
     oimx: null, // {ndarray} original image matrix
     imx: null, // {ndarray} working image matrix
     c: null, // {<canvas>} canvas
+    ctx: null,
     i: null // {<input type="file">}
 }
 
 /**
-* Initializing Imazing
-*
-* @param {<canvas>} canvas
-* @param {<input type="file">} input
-*/
-function create(canvas, input) {
-    props.c = canvas
-    props.oimx = {}
-    props.imx = {}
-    props.i = input
-}
-
-/**
-* Exposing modules to global
+* Exposing modules to global namespace
 * Available globally in "Imazing" 
 */
 const expose = {
-    create: create,
+    create: function(canvas, input) {
+        props.c = canvas
+        props.ctx = canvas.getContext('2d')
+        props.oimx = {}
+        props.imx = {}
+        props.i = input
+    },
     load: function() {
         load(props)
     },
     reset: function() {
-        draw(props.c, props.oimx)
+        draw(props.c, props.oimx, props.ctx)
         props.imx = read(props)
     },
     grayscale: function() {

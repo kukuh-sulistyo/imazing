@@ -7,7 +7,7 @@ const savePixels = require('save-pixels')
  * @param {ndarray} imx 
  */
 
-const draw = (canvas, imx) => {
+const draw = (canvas, imx, ctx) => {
     canvas.width = imx.shape[0]
     canvas.height = imx.shape[1]
 
@@ -16,7 +16,7 @@ const draw = (canvas, imx) => {
     canvas.width = newImageCanvas.width
     canvas.height = newImageCanvas.height
 
-    canvas.getContext("2d").drawImage(newImageCanvas, 0, 0)
+    ctx.drawImage(newImageCanvas, 0, 0)
     console.log('Image has been drawed on canvas.')
 }
 

@@ -27,12 +27,7 @@ const grayscale = props => {
         g = props.imx.pick(null, null, 1),
         b = props.imx.pick(null, null, 2)
     cwiseGrayscale(imx, r, g, b)
-    // console.log(imx)
-    // props.imx.data = imx.data
-    // props.c.getContext('2d').putImageData(imx.data, 0, 0);
-    //TODO: draw on canvas
-    draw(props.c, imx)
+    draw(props.c, imx, props.ctx)
     props.imx = read(props)
-    // read(props)
 }
 module.exports =  grayscale

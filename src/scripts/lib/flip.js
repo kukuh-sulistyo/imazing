@@ -1,7 +1,8 @@
 const draw = require('./draw.js')
 
 /**
- * Apply fliping based direction,"h" for horizontal and "v" for vertical
+ * Apply fliping based direction
+ * "h" for horizontal and "v" for vertical
  * 
  * @param {*} props 
  * @param {String} direction 
@@ -14,7 +15,7 @@ const flip = (props, direction) =>  {
     } else {
         console.error("You must specify flip direction, either \"h\" for horizontal or \"v\" for vertical")
     }
-    draw(props.c, props.imx)
+    draw(props.c, props.imx, props.ctx)
 }
 
 module.exports = flip
