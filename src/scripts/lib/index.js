@@ -6,6 +6,7 @@ const grayscale = require('./grayscale.js')
 const brighten = require('./brighten.js')
 const inverse = require('./inverse.js')
 const flip = require('./flip.js')
+const crop = require('./crop.js')
 const coba = require('./coba.js')
 
 // Imazing property
@@ -49,7 +50,7 @@ const expose = {
         flip(props, d)
     },
     coba2: function() {
-        flip(props)
+        crop(props, 0, 0, 1, 1)
     }
 }
 module.exports = expose;
