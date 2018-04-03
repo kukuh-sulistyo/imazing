@@ -27,13 +27,14 @@ const coba = () => {
     x.set(1, 1, 2)
     x.set(1, 0, 5)
     x.set(2, 0, 3)
-    var horizontalFlip = x.step(-1)
+    var horizontalFlip = x.step(-1, 0)
     var lo = x.lo(1, 1)
     console.log(x)
     // console.log(x.get(2, 0))
     // console.log(horizontalFlip.get(2, 0))
-    console.log(lo)
-    console.log(x.get(1, 0))
+    // console.log(lo)
+    // console.log(x.get(1, 0))
+    console.log(horizontalFlip)
 
 }
 

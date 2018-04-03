@@ -27,8 +27,6 @@ function create(canvas, input) {
     props.oimx = {}
     props.imx = {}
     props.i = input
-
-    coba()
 }
 
 /**
@@ -52,11 +50,9 @@ const expose = {
     },
     inverse: function() {
         inverse(props)
-        console.log('asdf')
     },
-    cek: function() {
-        // brighten(props, 100)
-        coba()
+    flip: function(d = "h") {
+        flip(props, d)
     },
     coba2: function() {
         flip(props)
