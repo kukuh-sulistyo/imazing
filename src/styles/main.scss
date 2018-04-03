@@ -49,7 +49,7 @@ aside {
 
     .flex {
         margin-bottom: 8px;
-        &> .btn { 
+        &> .btn, input { 
             margin-bottom: 0; 
         }
     }

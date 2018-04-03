@@ -49,6 +49,9 @@ const expose = {
     flip: function(d = "h") {
         flip(props, d)
     },
+    crop: function(startX, startY, w, h) {
+        crop(props, startX, startY, w, h)
+    },
     coba2: function() {
         crop(props, 0, 0, 1, 1)
     }
