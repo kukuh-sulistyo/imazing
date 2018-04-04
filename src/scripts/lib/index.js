@@ -53,6 +53,9 @@ const expose = {
     crop: function(startX, startY, w, h) {
         crop(props, startX, startY, w, h)
     },
+    rotate: function(deg) {
+        rotate(props, 90)
+    },
     coba2: function() {
         // crop(props, 0, 0, 1, 1)
         rotate(props, 270)

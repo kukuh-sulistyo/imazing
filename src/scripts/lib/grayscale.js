@@ -7,10 +7,7 @@ const read = require('./read.js')
 const cwiseGrayscale = cwise({
     args: ["array", "array", "array", "array"],
     body: function(imx, r, g, b) {
-        // if (this.index % 4 !== 0) {
-            imx = r * 0.3 + g * 0.59 + b * 0.11
-        // }
-        // this.index += 1
+        imx = r * 0.3 + g * 0.59 + b * 0.11
     }
 })
 
