@@ -7,6 +7,7 @@ const brighten = require('./brighten.js')
 const inverse = require('./inverse.js')
 const flip = require('./flip.js')
 const crop = require('./crop.js')
+const rotate = require('./rotate.js')
 const coba = require('./coba.js')
 
 // Imazing property
@@ -53,7 +54,11 @@ const expose = {
         crop(props, startX, startY, w, h)
     },
     coba2: function() {
-        crop(props, 0, 0, 1, 1)
+        // crop(props, 0, 0, 1, 1)
+        rotate(props, 270)
+    },
+    print: function() {
+        console.log(props.imx)
     }
 }
 module.exports = expose;
