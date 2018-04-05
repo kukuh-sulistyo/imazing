@@ -61,7 +61,7 @@ const expose = {
         rotate(props, 270)
     },
     print: function() {
-        console.log(props.imx)
+        console.warn(props.imx.get(5.1, 1, 0))
     }
 }
 module.exports = expose;

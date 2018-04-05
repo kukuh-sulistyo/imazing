@@ -43,12 +43,14 @@
                 <button type="button" id="flipV" class="btn effect">Flip Vertical</button>
             </div>
 
-            <div class="btn-group flex">
+            <div class="btn-group">
                 <p class="head">Crop</p>
-                <input type="number" id="cropX" placeholder="Start X" value="50">
-                <input type="number" id="cropY" placeholder="Start Y" value="50">
-                <input type="number" id="cropWidth" placeholder="Width" value="128">
-                <input type="number" id="cropHeight" placeholder="Height" value="128">
+                <div class="flex">
+                    <input type="number" id="cropX" placeholder="Start X" value="50">
+                    <input type="number" id="cropY" placeholder="Start Y" value="50">
+                    <input type="number" id="cropWidth" placeholder="Width" value="128">
+                    <input type="number" id="cropHeight" placeholder="Height" value="128">
+                </div>
                 <button type="button" id="crop" class="btn effect">Crop</button>
             </div>
             <div class="btn-group flex">
@@ -61,11 +63,11 @@
                 <p class="head">Invers</p>
                 <button type="button" id="inverse" class="btn effect">Inverse</button>
             </div>
-            <div class="btn-group">
+            <!-- <div class="btn-group">
                 <p class="head">Coba</p>
                 <button type="button" id="coba" class="btn">Coba</button>
                 <button type="button" id="coba2" class="btn">Coba 2</button>
-            </div>
+            </div> -->
 
             <button id="reset" class="btn">Reset</button>
         </aside>
@@ -88,10 +90,10 @@
         document.getElementById('reset').addEventListener('click', Imazing.reset)
 
         // Coba
-        document.getElementById('coba').addEventListener('click', function () {
-            Imazing.rotate(90)
-        })
-        document.getElementById('coba2').addEventListener('click', Imazing.print)
+        // document.getElementById('coba').addEventListener('click', function () {
+        //     Imazing.print()
+        // })
+        // document.getElementById('coba2').addEventListener('click', Imazing.print)
 
         // Brighteness
         document.getElementById('brightenSumUp').addEventListener('click', function () {

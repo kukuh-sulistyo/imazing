@@ -122,7 +122,10 @@ p {
 }
 
 // CUSTOM STYLES
-#load { display: none; }
+#load { 
+    display: none; 
+    &+ label.btn {  background-color: rgb(50, 160, 10); }
+}
 #reset {
     background-color: rgb(207, 33, 2);
 }
