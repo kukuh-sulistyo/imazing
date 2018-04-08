@@ -21,7 +21,7 @@ const cwiseInverse = cwise({
  */
 const inverse = props => { 
     cwiseInverse(props.imx) 
-    draw(props.c, props.imx, props.ctx)
+    draw(props.c, props.imx)
 }
 
 module.exports = inverse

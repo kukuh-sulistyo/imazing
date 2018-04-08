@@ -64,6 +64,7 @@ const expose = {
     print: function() {
         // console.warn(props.imx.get(5.1, 1, 0))
         scale(props, 2)
+        // console.log(props.imx.get(0, 1, 1))
     }
 }
 module.exports = expose;

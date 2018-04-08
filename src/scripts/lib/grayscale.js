@@ -24,7 +24,7 @@ const grayscale = props => {
         g = props.imx.pick(null, null, 1),
         b = props.imx.pick(null, null, 2)
     cwiseGrayscale(imx, r, g, b)
-    draw(props.c, imx, props.ctx)
+    draw(props.c, imx)
     props.imx = read(props)
 }
 module.exports =  grayscale

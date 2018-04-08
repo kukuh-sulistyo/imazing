@@ -1,5 +1,6 @@
 const cwise = require('cwise')
 const ndarray = require('ndarray')
+const draw = require('./draw.js')
 const crop = require('./crop.js')
 
 const cwiseGrayscale = cwise({
@@ -24,7 +25,6 @@ const scaleUp = (props, scale) => {
         shape = [newW, newH, 4],
         stride = [4, newW * 4, 1],
         zoomedImx = new ndarray(new Uint8Array(newW * newH * 4), shape, stride, 0)
-    // let zoomedImx = new ndarray(new Uint8Array(newW*newH), [newW, newH])
 
     for (let x = 0; x < newW; x++) {
         for (let y = 0; y < newH; y++) {
@@ -41,5 +41,11 @@ const scaleUp = (props, scale) => {
     let startX = Math.floor(newW / 2) - Math.floor(iW / 2),
         startY = Math.floor(newH / 2) - Math.floor(iH / 2)
     crop(props, startX, startY, iW, iH)
+}
+
+const scaleDown = (props, scale) => {
+    let zoomedImx
+    zoomedImx = new ndarray(new Uint8Array(w * h * 4), props.imx.shape, props.imx.stride, 0)
+    draw(props.c, zoomedImx)
 }
 module.exports = scaleUp

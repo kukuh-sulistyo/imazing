@@ -12,7 +12,7 @@ const rotate = (props, deg) => {
     for (let i = 1; i <= n; i++) {
         props.imx = props.imx.transpose(1, 0).step(-1)
     }
-    draw(props.c, props.imx, props.ctx)
+    draw(props.c, props.imx)
     console.log('Rotated')
 }
 
@@ -45,7 +45,7 @@ const rotate = (props, deg) => {
     //     }
     // }
     // console.warn(imx)
-    // draw(props.c, imx, props.ctx)
+    // draw(props.c, imx)
 // }
 
 module.exports = rotate

@@ -6,7 +6,7 @@ const savePixels = require('save-pixels')
  * @param {ndarray} imx 
  */
 
-const draw = (canvas, imx, ctx) => {
+const draw = (canvas, imx) => {
     canvas.width = imx.shape[0]
     canvas.height = imx.shape[1]
 

@@ -36,7 +36,7 @@ const crop = (props, startX, startY, w, h) => {
     }
     
     console.log("cropped")
-    draw(props.c, croppedImx, props.ctx)
+    draw(props.c, croppedImx)
     props.imx = read(props)
 
 }

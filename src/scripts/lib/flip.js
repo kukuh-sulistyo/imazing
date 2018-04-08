@@ -15,7 +15,7 @@ const flip = (props, direction) =>  {
     } else {
         console.error("You must specify flip direction, either \"h\" for horizontal or \"v\" for vertical")
     }
-    draw(props.c, props.imx, props.ctx)
+    draw(props.c, props.imx)
 }
 
 module.exports = flip

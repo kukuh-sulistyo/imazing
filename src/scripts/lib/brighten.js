@@ -98,7 +98,7 @@ const brighten = (props, f, s) => {
     } else {
         console.error('Error: brighten function should be either \"sum\" or \"mult\"')
     }
-    draw(props.c, props.imx, props.ctx)
+    draw(props.c, props.imx)
 }
 
 module.exports = brighten
