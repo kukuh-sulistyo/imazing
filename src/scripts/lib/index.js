@@ -8,6 +8,7 @@ const inverse = require('./inverse.js')
 const flip = require('./flip.js')
 const crop = require('./crop.js')
 const rotate = require('./rotate.js')
+const scale = require('./scale.js')
 const coba = require('./coba.js')
 
 // Imazing property
@@ -61,7 +62,8 @@ const expose = {
         rotate(props, 270)
     },
     print: function() {
-        console.warn(props.imx.get(5.1, 1, 0))
+        // console.warn(props.imx.get(5.1, 1, 0))
+        scale(props, 2)
     }
 }
 module.exports = expose;

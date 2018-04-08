@@ -1,5 +1,4 @@
 const savePixels = require('save-pixels')
-
 /**
  * Draw image on canvas
  * 
@@ -15,7 +14,7 @@ const draw = (canvas, imx, ctx) => {
 
     canvas.width = newImageCanvas.width
     canvas.height = newImageCanvas.height
-    ctx.drawImage(newImageCanvas, 0, 0)
+    canvas.getContext('2d').drawImage(newImageCanvas, 0, 0)
     console.log('Image has been drawed on canvas.')
 }
 
