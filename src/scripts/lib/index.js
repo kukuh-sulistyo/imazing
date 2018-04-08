@@ -10,6 +10,7 @@ const crop = require('./crop.js')
 const rotate = require('./rotate.js')
 const scaleDown = require('./scale.js').scaleDown
 const scaleUp = require('./scale.js').scaleUp
+const histogram = require('./histogram.js')
 const coba = require('./coba.js')
 
 // Imazing property
@@ -17,8 +18,9 @@ let props = {
     oimx: null, // {ndarray} original image matrix
     imx: null, // {ndarray} working image matrix
     c: null, // {<canvas>} canvas
-    ctx: null,
-    i: null // {<input type="file">}
+    i: null, // {<input type="file">},
+    hC: null // {<canvas>} histograms's canvas
+
 }
 
 /**
@@ -26,12 +28,12 @@ let props = {
 * Available globally in "Imazing" 
 */
 const expose = {
-    create: function(canvas, input) {
+    create: function(canvas, input, histogramCanvas) {
         props.c = canvas
-        props.ctx = canvas.getContext('2d')
         props.oimx = {}
         props.imx = {}
         props.i = input
+        props.hC = histogramCanvas
     },
     load: function() {
         load(props)
@@ -64,14 +66,20 @@ const expose = {
     scaleDown: function(scale) {
         scaleDown(props)
     },
+    histogram: function() {
+        console.log('CLICKED')
+        histogram(props.imx, props.hC)
+    },
     coba2: function() {
         // crop(props, 0, 0, 1, 1)
         rotate(props, 270)
     },
-    print: function() {
+    print: function(canvas) {
         // console.warn(props.imx.get(5.1, 1, 0))
-        scale(props, 2)
+        // scale(props, 2)
         // console.log(props.imx.get(0, 1, 1))
+
+        // histogram(props.imx, props.hC)
     }
 }
 module.exports = expose;
