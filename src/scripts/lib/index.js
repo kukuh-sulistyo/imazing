@@ -8,7 +8,8 @@ const inverse = require('./inverse.js')
 const flip = require('./flip.js')
 const crop = require('./crop.js')
 const rotate = require('./rotate.js')
-const scale = require('./scale.js')
+const scaleDown = require('./scale.js').scaleDown
+const scaleUp = require('./scale.js').scaleUp
 const coba = require('./coba.js')
 
 // Imazing property
@@ -56,6 +57,12 @@ const expose = {
     },
     rotate: function(deg) {
         rotate(props, 90)
+    },
+    scaleUp: function(scale) {
+        scaleUp(props, scale)
+    },
+    scaleDown: function(scale) {
+        scaleDown(props)
     },
     coba2: function() {
         // crop(props, 0, 0, 1, 1)
