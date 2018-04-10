@@ -23,7 +23,7 @@
                 <p class="head">Load</p>
                 <input type="file" id="load">
                 <label for="load" class="btn">Load Image</label>
-                <!-- <button type="button" id="coba" class="btn">Coba</button> -->
+                <button type="button" id="coba" class="btn">Coba</button>
             </div>
             <div class="btn-group">
                     <p class="head">Histogram</p>
@@ -76,11 +76,15 @@
                 <button type="button" id="scaleUp" class="btn effect">Zoom In</button>
                 <button type="button" id="scaleDown" class="btn effect">Zoom Out</button>
             </div>
-            <!-- <div class="btn-group">
-                <p class="head">Coba</p>
-                <button type="button" id="coba" class="btn">Coba</button>
-                <button type="button" id="coba2" class="btn">Coba 2</button>
-            </div> -->
+            <div class="btn-group flex">
+                <p class="head">Noise Reduction</p>
+                <select id="type">
+                    <option value="mean">Mean Filter</option>
+                    <option value="median">Median Filter</option>
+                    <option value="modus">Modus Filter</option>
+                </select>
+                <button type="button" id="noiseReduction" class="btn">Filter</button>
+            </div>
 
             <button id="reset" class="btn">Reset</button>
         </aside>
@@ -106,9 +110,10 @@
         document.getElementById('reset').addEventListener('click', Imazing.reset)
 
         // Coba
-        // document.getElementById('coba').addEventListener('click', function () {
-        //     Imazing.print()
-        // })
+        document.getElementById('coba').addEventListener('click', function () {
+            Imazing.coba()
+            // console.log('hi')
+        })
         // document.getElementById('coba2').addEventListener('click', Imazing.print)
 
         // Brighteness
@@ -166,6 +171,12 @@
         })
         document.getElementById('scaleDown').addEventListener('click', function() {
             Imazing.scaleDown()
+        })
+
+        // Noise Reduction
+        document.getElementById('noiseReduction').addEventListener('click', function() {
+            var type = document.getElementById('type').value
+            Imazing.noiseReduction(type)
         })
         
 

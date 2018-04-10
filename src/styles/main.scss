@@ -41,7 +41,7 @@ aside {
         padding: 12px;
         margin-bottom: 8px;
         &> *:last-child { margin-bottom: 0; }
-        .btn {
+        .btn, select {
             flex: 1;
         }
 

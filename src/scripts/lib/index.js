@@ -11,6 +11,8 @@ const rotate = require('./rotate.js')
 const scaleDown = require('./scale.js').scaleDown
 const scaleUp = require('./scale.js').scaleUp
 const histogram = require('./histogram.js')
+const filterSharp = require('./filter.js').sharp //EXPERIMENT
+const noiseReduction = require('./noise-reduction.js')
 const coba = require('./coba.js')
 
 // Imazing property
@@ -70,16 +72,11 @@ const expose = {
         console.log('CLICKED')
         histogram(props.imx, props.hC)
     },
-    coba2: function() {
-        // crop(props, 0, 0, 1, 1)
-        rotate(props, 270)
+    noiseReduction: function(type) {
+        noiseReduction(props, type)
     },
-    print: function(canvas) {
-        // console.warn(props.imx.get(5.1, 1, 0))
-        // scale(props, 2)
-        // console.log(props.imx.get(0, 1, 1))
-
-        // histogram(props.imx, props.hC)
+    coba: function() {
+        noiseReduction(props, "modus")
     }
 }
 module.exports = expose;
