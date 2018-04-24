@@ -2,6 +2,7 @@ const draw = require('./draw.js')
 const read = require('./read.js')
 const ndarray = require('ndarray')
 const grayscale = require('./grayscale.js')
+const threshold = require('./threshold.js')
 
 /**
  * Convert to grayscale and apply erotion
@@ -15,14 +16,14 @@ const grayscale = require('./grayscale.js')
  * 
  * @param {*} props 
  */
-const erotion = (props) => {
+const erotionGrayscale = (props) => {
     // Convert to grayscale
     grayscale(props)
 
     let erotedImx = new ndarray(new Uint8Array(props.imx.data.length), props.imx.shape, props.imx.stride, 0)
     let fSize = 3 // dimension structuring element 
     let halfFSize = Math.floor(fSize/2)
-    let neighbors, result, filterFunction
+    let neighbors, result
     
     for (let x = 0; x < erotedImx.shape[0]; x++) {
         for (let y = 0; y < erotedImx.shape[1]; y++) {
@@ -47,8 +48,7 @@ const erotion = (props) => {
 }
 
 /**
- * TODO: convert to binary image
- * Convert to binary and apply erotion
+ * Convert to binary image and apply erotion
  * Foreground: white
  * Background: black
  * Using 3x3 structuring elements
@@ -60,12 +60,11 @@ const erotion = (props) => {
  * @param {*} props 
  */
 const erotionBinary = (props) => {
-    // TODO: convert to binary image
-
+    threshold(props, 127)
     let erotedImx = new ndarray(new Uint8Array(props.imx.data.length), props.imx.shape, props.imx.stride, 0)
     let fSize = 3 // dimension structuring element 
     let halfFSize = Math.floor(fSize/2)
-    let neighbor, result, filterFunction
+    let neighbor, result
     
     for (let x = 0; x < erotedImx.shape[0]; x++) {
         for (let y = 0; y < erotedImx.shape[1]; y++) {
@@ -90,6 +89,6 @@ const erotionBinary = (props) => {
 }
 
 module.exports = module.exports = {
-    erotion: erotion,
+    erotionGrayscale: erotionGrayscale,
     erotionBinary: erotionBinary
 }

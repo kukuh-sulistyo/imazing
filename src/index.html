@@ -88,7 +88,16 @@
                 </select>
                 <button type="button" id="noiseReduction" class="btn">Filter</button>
             </div>
-
+            <div class="btn-group">
+                <p class="head">Dilation</p>
+                <button type="button" id="dilationGrayscale" class="btn effect">Grayscale Dilation</button>
+                <button type="button" id="dilationBinary" class="btn effect">Binary Dilation</button>
+            </div>
+            <div class="btn-group">
+                <p class="head">Erotion</p>
+                <button type="button" id="erotionGrayscale" class="btn effect">Grayscale Erotion</button>
+                <button type="button" id="erotionBinary" class="btn effect">Binary Erotion</button>
+            </div>
             <button id="reset" class="btn">Reset</button>
         </aside>
     </div>
@@ -182,6 +191,21 @@
         document.getElementById('noiseReduction').addEventListener('click', function() {
             var type = document.getElementById('type').value
             Imazing.noiseReduction(type)
+        })
+
+        // Dilation
+        document.getElementById('dilationGrayscale').addEventListener('click', function() {
+            Imazing.dilationGrayscale()
+        })
+        document.getElementById('dilationBinary').addEventListener('click', function() {
+            Imazing.dilationBinary()
+        })
+        // Erotion
+        document.getElementById('erotionGrayscale').addEventListener('click', function() {
+            Imazing.erotionGrayscale()
+        })
+        document.getElementById('erotionBinary').addEventListener('click', function() {
+            Imazing.erotionBinary()
         })
         
 

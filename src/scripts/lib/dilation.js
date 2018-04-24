@@ -2,6 +2,7 @@ const draw = require('./draw.js')
 const read = require('./read.js')
 const ndarray = require('ndarray')
 const grayscale = require('./grayscale.js')
+const threshold = require('./threshold.js')
 
 /**
  * Convert to grayscale and apply dilation
@@ -15,14 +16,14 @@ const grayscale = require('./grayscale.js')
  * 
  * @param {*} props 
  */
-const dilation = (props) => {
+const dilationGrayscale = (props) => {
     // Convert to grayscale
     grayscale(props)
 
     let dilatedImx = new ndarray(new Uint8Array(props.imx.data.length), props.imx.shape, props.imx.stride, 0)
     let fSize = 3 // dimension structuring element 
     let halfFSize = Math.floor(fSize/2)
-    let neighbors, result, filterFunction
+    let neighbors, result
     
     for (let x = 0; x < dilatedImx.shape[0]; x++) {
         for (let y = 0; y < dilatedImx.shape[1]; y++) {
@@ -47,7 +48,6 @@ const dilation = (props) => {
 }
 
 /**
- * TODO: convert to binary image
  * Convert to binary and apply dilation
  * Foreground: white
  * Background: black
@@ -60,12 +60,11 @@ const dilation = (props) => {
  * @param {*} props 
  */
 const dilationBinary = (props) => {
-    // TODO: convert to binary image
-
+    threshold(props, 127)
     let dilatedImx = new ndarray(new Uint8Array(props.imx.data.length), props.imx.shape, props.imx.stride, 0)
     let fSize = 3 // dimension structuring element 
     let halfFSize = Math.floor(fSize/2)
-    let neighbor, result, filterFunction
+    let neighbor, result
     
     for (let x = 0; x < dilatedImx.shape[0]; x++) {
         for (let y = 0; y < dilatedImx.shape[1]; y++) {
@@ -89,4 +88,7 @@ const dilationBinary = (props) => {
     console.log('image has been dilated')
 }
 
-module.exports = dilation
+module.exports = {
+    dilationGrayscale: dilationGrayscale,
+    dilationBinary: dilationBinary
+}
