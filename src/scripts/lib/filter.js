@@ -17,7 +17,9 @@ const doFilter = (imx , filter) => {
                         sum += filter.get(xF, yF) * (imx.get(x+xF-halfFSize, y+yF-halfFSize, z) || 0)
                     }
                 }
-                filteredImx.set(x, y, z, Math.min(Math.floor(sum), 255))
+                // make sure sum is between 0..255
+                sum = Math.min(Math.max(Math.floor(sum), 0),  255)
+                filteredImx.set(x, y, z, sum)
             }
             filteredImx.set(x, y, 3, 255)
         }

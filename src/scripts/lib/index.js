@@ -76,7 +76,7 @@ const expose = {
         noiseReduction(props, type)
     },
     coba: function() {
-        noiseReduction(props, "modus")
+        filterSharp(props)
     }
 }
 module.exports = expose;
