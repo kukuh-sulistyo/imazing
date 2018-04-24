@@ -13,6 +13,10 @@ const scaleUp = require('./scale.js').scaleUp
 const histogram = require('./histogram.js')
 const filterSharp = require('./filter.js').sharp //EXPERIMENT
 const noiseReduction = require('./noise-reduction.js')
+const dilation = require('./dilation.js').dilation
+const dilationBinary = require('./dilation.js').dilationBinary
+const erotion = require('./erotion.js').erotion
+const erotionBinary = require('./erotion.js').erotionBinary
 const coba = require('./coba.js')
 
 // Imazing property
@@ -69,14 +73,13 @@ const expose = {
         scaleDown(props)
     },
     histogram: function() {
-        console.log('CLICKED')
         histogram(props.imx, props.hC)
     },
     noiseReduction: function(type) {
         noiseReduction(props, type)
     },
     coba: function() {
-        filterSharp(props)
+        erotionBinary(props)
     }
 }
 module.exports = expose;

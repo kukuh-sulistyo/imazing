@@ -2,6 +2,7 @@ const ndarray = require('ndarray')
 const draw = require('./draw.js')
 const read = require('./read.js')
 
+// EXPERIMENT
 const doFilter = (imx , filter) => {
     let filteredImx = new ndarray(new Uint8Array(imx.data.length), imx.shape, imx.stride, 0)
     let fSize = filter.shape[0]
