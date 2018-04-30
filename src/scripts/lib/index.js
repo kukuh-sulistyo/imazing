@@ -11,12 +11,14 @@ const rotate = require('./rotate.js')
 const scaleDown = require('./scale.js').scaleDown
 const scaleUp = require('./scale.js').scaleUp
 const histogram = require('./histogram.js')
-const filterSharp = require('./filter.js').sharp //EXPERIMENT
 const noiseReduction = require('./noise-reduction.js')
 const dilationGrayscale = require('./dilation.js').dilationGrayscale
 const dilationBinary = require('./dilation.js').dilationBinary
 const erotionGrayscale = require('./erotion.js').erotionGrayscale
 const erotionBinary = require('./erotion.js').erotionBinary
+const filterBlur = require('./filter.js').blur
+const filterSharp = require('./filter.js').sharp
+const filterSobel = require('./filter.js').sobel
 const threshold = require('./threshold.js')
 const coba = require('./coba.js')
 
@@ -91,6 +93,18 @@ const expose = {
     erotionBinary: function() {
         erotionBinary(props)
     },
+    filterBlur: function() {
+        filterBlur(props)
+    },
+    filterSharp: function() {
+        filterSharp(props)
+    },
+    filterSobel: function() {
+        filterSobel(props)
+    },
+    coba: function() {
+        filterSharp(props)
+    }
 }
 module.exports = expose;
 
