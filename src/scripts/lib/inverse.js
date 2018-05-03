@@ -1,5 +1,4 @@
 const cwise = require('cwise')
-const draw = require('./draw.js')
 
 const cwiseInverse = cwise({
     args: ["array"],
@@ -15,13 +14,13 @@ const cwiseInverse = cwise({
 })
 
 /**
- * Apply inverse
+ * Apply inverse on image matrix
  * 
- * @param {*} props 
+ * @param {ndarray} imx 
  */
-const inverse = props => { 
-    cwiseInverse(props.imx) 
-    draw(props.c, props.imx)
+const inverse = imx => { 
+    console.log('Inversed.')
+    cwiseInverse(imx)
 }
 
 module.exports = inverse

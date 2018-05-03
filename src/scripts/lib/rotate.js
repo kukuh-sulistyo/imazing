@@ -1,19 +1,21 @@
-const draw = require('./draw.js')
 const ndarray = require('ndarray')
 
 /**
- * Apply rotate in 90-multiplier-deg angle
+ * Apply clockwise rotation 
+ * in 90-multiplier-deg angle
  * 
- * @param {*} props 
+ * @param {ndarray} imx 
  * @param {int} deg // angle 90, 180, 270, 360, 450, ... 
+ * @return {ndarray} rotated image matrix
+ * 
  */
-const rotate = (props, deg) => {
+const rotate = (imx, deg) => {
     let n = Math.floor(deg / 90)
     for (let i = 1; i <= n; i++) {
-        props.imx = props.imx.transpose(1, 0).step(-1)
+        imx = imx.transpose(1, 0).step(-1)
     }
-    draw(props.c, props.imx)
-    console.log('Rotated')
+    console.log('Rotated.')
+    return imx
 }
 
 // [EXPERIMENT]

@@ -7,23 +7,23 @@ const Chart = require('chart.js')
  * @returns {array} 
  */
 const getHistogram = imx => {
-    let histo, histograms
+    let histogram, histograms
     histograms = [] // array of histo (r, g, b)
 
     // looping through dimension
     for (let z = 0; z < 3; z++) {
-        // single histo
+        // single histogram
         // set value of axis (x,y) => [0, 0, 0, ...]
-        histo = Array.apply(null, new Array(256)).map(Number.prototype.valueOf, 0); 
+        histogram = Array.apply(null, new Array(256)).map(Number.prototype.valueOf, 0); 
 
         // update Y axis
         for (let i = 0; i < imx.shape[0]; i++) {
             for (let j = 0; j < imx.shape[1]; j++) {
-                histo[imx.get(i, j, z)]++
+                histogram[imx.get(i, j, z)]++
             }
         }
 
-        histograms.push(histo)
+        histograms.push(histogram)
     }
     return histograms
 }
@@ -33,7 +33,7 @@ const getHistogram = imx => {
  * Using chart.js
  * 
  * @param {ndarray} imx 
- * @param {<canvas>} canvas 
+ * @param {HTMLCanvasElement} canvas 
  */
 const drawHistogram = (imx, canvas) => {
     let histograms = getHistogram(imx)

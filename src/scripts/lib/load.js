@@ -4,7 +4,7 @@ const read = require('./read.js')
 /**
  * Load image from local directory, then draw on canvas
  * 
- * @param {Imazing Props} props 
+ * @param {*} props 
  */
 const load = function(props) {
     if (input.files[0].type.search(/image/g) == false) {
@@ -20,8 +20,8 @@ const load = function(props) {
                 props.c.getContext("2d").drawImage(img, 0, 0)
 
                 // Get image matrix
-                props.oimx = read(props)
-                props.imx = read(props)
+                props.oimx = read(props.c)
+                props.imx = read(props.c)
                 
                 console.log("Image drawed.");
             }

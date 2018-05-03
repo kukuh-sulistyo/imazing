@@ -1,5 +1,3 @@
-const draw = require('./draw.js')
-const read = require('./read.js')
 const ndarray = require('ndarray')
 const grayscale = require('./grayscale.js')
 const threshold = require('./threshold.js')
@@ -14,37 +12,36 @@ const threshold = require('./threshold.js')
  * | 255, 255, 255 |
  * | 255, 255, 255 |
  * 
- * @param {*} props 
+ * @param {ndarray} imx 
+ * @return {ndarray} grayscale eroted image matrix
  */
-const erotionGrayscale = (props) => {
+const erotionGrayscale = imx => {
     // Convert to grayscale
-    grayscale(props)
+    let grayscalledImx = grayscale(imx)
 
-    let erotedImx = new ndarray(new Uint8Array(props.imx.data.length), props.imx.shape, props.imx.stride, 0)
-    let fSize = 3 // dimension structuring element 
+    let erotedImx = new ndarray(new Uint8Array(grayscalledImx.data.length), grayscalledImx.shape, grayscalledImx.stride, 0)
+    let fSize = 3 // dimension of structuring element 
     let halfFSize = Math.floor(fSize/2)
     let neighbors, result
     
     for (let x = 0; x < erotedImx.shape[0]; x++) {
         for (let y = 0; y < erotedImx.shape[1]; y++) {
-            for (let z = 0; z < 3; z++) {
-                // get neighbors pixel
-                neighbors = []
-                for (let xF = 0; xF < fSize; xF++) {
-                    for (let yF = 0; yF < fSize; yF++) {
-                        neighbors.push(props.imx.get(x+xF-halfFSize, y+yF-halfFSize, z) || 0)
-                    }
+            // get neighbors pixel
+            neighbors = []
+            for (let xF = 0; xF < fSize; xF++) {
+                for (let yF = 0; yF < fSize; yF++) {
+                    neighbors.push(grayscalledImx.get(x+xF-halfFSize, y+yF-halfFSize) || 0)
                 }
-                // get max value
-                result = Math.min(...neighbors)
-                erotedImx.set(x, y, z, result)
             }
-            erotedImx.set(x, y, 3, 255)
+            // get min value
+            result = Math.min(...neighbors)
+            // put min pixel into erotedImx
+            erotedImx.set(x, y, result)
         }
     }
-    draw(props.c, erotedImx)
-    props.imx = read(props)
-    console.log('image has been eroted')
+
+    console.log('Grayscale Eroted.')
+    return erotedImx
 }
 
 /**
@@ -57,35 +54,35 @@ const erotionGrayscale = (props) => {
  * | 255, 255, 255 |
  * | 255, 255, 255 |
  * 
- * @param {*} props 
+ * @param {ndarray} imx 
+ * @return {ndarray} binary eroted image matrix
  */
-const erotionBinary = (props) => {
-    threshold(props, 127)
-    let erotedImx = new ndarray(new Uint8Array(props.imx.data.length), props.imx.shape, props.imx.stride, 0)
-    let fSize = 3 // dimension structuring element 
+const erotionBinary = imx => {
+    // Convert to binary image
+    let thresholdedImx = threshold(imx, 127)
+
+    let erotedImx = new ndarray(new Uint8Array(thresholdedImx.data.length), thresholdedImx.shape, thresholdedImx.stride, 0)
+    let fSize = 3 // dimension of structuring element 
     let halfFSize = Math.floor(fSize/2)
     let neighbor, result
     
     for (let x = 0; x < erotedImx.shape[0]; x++) {
         for (let y = 0; y < erotedImx.shape[1]; y++) {
-            for (let z = 0; z < 3; z++) {
-                // get eroted
-                result = 255
-                for (let xF = 0; xF < fSize; xF++) {
-                    for (let yF = 0; yF < fSize; yF++) {
-                        neighbor = (props.imx.get(x+xF-halfFSize, y+yF-halfFSize, z) || 0)
-                        result = result && (neighbor || 0)
-                    }
+            // get eroted pixel
+            result = 255
+            for (let xF = 0; xF < fSize; xF++) {
+                for (let yF = 0; yF < fSize; yF++) {
+                    neighbor = (thresholdedImx.get(x+xF-halfFSize, y+yF-halfFSize) || 0)
+                    result = result && (neighbor || 0)
                 }
-                // set eroted pixel
-                erotedImx.set(x, y, z, result)
             }
-            erotedImx.set(x, y, 3, 255)
+            // put eroted pixel into erotedImx
+            erotedImx.set(x, y, result)
         }
     }
-    draw(props.c, erotedImx)
-    props.imx = read(props)
-    console.log('image has been eroted')
+
+    console.log('Binary Eroted.')
+    return erotedImx
 }
 
 module.exports = module.exports = {

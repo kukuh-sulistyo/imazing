@@ -1,22 +1,20 @@
-const draw = require('./draw.js')
-const read = require('./read.js')
 const ndarray = require('ndarray')
 
 /**
- * Apply crop then draw on canvas 
+ * Apply crop
  * 
- * @param {*} props 
+ * @param {ndarray} imx 
  * @param {int} startX // x pixels from top
  * @param {int} startY // y pixles from left
  * @param {int} w // cropped width
  * @param {int} h // cropped height
+ * @return {ndarray} cropped image matrix
  */
-const crop = (props, startX, startY, w, h) => {
-    // let imx = props.imx.lo(startX, startY).hi(w, h)
+const crop = (imx, startX, startY, w, h) => {
     let iW, iH, shape, stride, croppedImx
 
-    iW = props.imx.shape[0]
-    iH = props.imx.shape[1]
+    iW = imx.shape[0]
+    iH = imx.shape[1]
 
     // handle overlapping crop
     if (startX + w > iW) w = iW - startX
@@ -28,16 +26,14 @@ const crop = (props, startX, startY, w, h) => {
 
     for (let x = 0; x < w; x++) {
         for (let y = 0; y < h; y++) {
-            croppedImx.set(x, y, 0, props.imx.get(startX+x, startY+y, 0))
-            croppedImx.set(x, y, 1, props.imx.get(startX+x, startY+y, 1))
-            croppedImx.set(x, y, 2, props.imx.get(startX+x, startY+y, 2))
-            croppedImx.set(x, y, 3, props.imx.get(startX+x, startY+y, 3))
+            croppedImx.set(x, y, 0, imx.get(startX+x, startY+y, 0))
+            croppedImx.set(x, y, 1, imx.get(startX+x, startY+y, 1))
+            croppedImx.set(x, y, 2, imx.get(startX+x, startY+y, 2))
+            croppedImx.set(x, y, 3, imx.get(startX+x, startY+y, 3))
         }
     }
-    
-    console.log("cropped")
-    draw(props.c, croppedImx)
-    props.imx = read(props)
+    console.log('Cropped.')
+    return croppedImx
 
 }
 

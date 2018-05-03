@@ -1,5 +1,4 @@
 const cwise = require('cwise')
-const draw = require('./draw.js')
 
 // Brighten with Sumation function
 const cwiseBrightenPlus = cwise({
@@ -56,49 +55,50 @@ const cwiseBrightenDiv = cwise({
 /**
  * Apply brighten with Sumation function
  *  
- * @param {*} props 
+ * @param {ndarray} imx 
  * @param {int} s 
  */
-const brightenSum = (props, s) => {
+const brightenSum = (imx, s) => {
     if (s > 0) {
-        cwiseBrightenPlus(props.imx, s)
+        cwiseBrightenPlus(imx, s)
     } else {
-        cwiseBrightenSub(props.imx, s)
+        cwiseBrightenSub(imx, s)
     }
 } 
 
 /**
  * Apply brighten with Multiplication function
  *  
- * @param {*} props 
+ * @param {ndarray} imx 
  * @param {int} s 
  */
-const brightenMult = (props, s) => {
+const brightenMult = (imx, s) => {
     if (s >= 1) {
-        cwiseBrightenMult(props.imx, s)
+        cwiseBrightenMult(imx, s)
     } else if (s >= 0 && s < 1) {
-        cwiseBrightenDiv(props.imx, s)
+        cwiseBrightenDiv(imx, s)
     } else {
         console.error('Error[Multiplication Brighten]: scalar shouldnt negative')
     }
 } 
 
 /**
- * Apply brighten
+ * Apply brighten on image matrix
  * 
- * @param {*} props 
- * @param {string} f 
+ * @param {ndarray} imx 
  * @param {scalar} s 
+ * @param {string} f 
  */
-const brighten = (props, f, s) => {
+const brighten = (imx, s, f) => {
     if (f == "sum") {
-        brightenSum(props, s)
+        brightenSum(imx, s)
+        console.log('Brightened.')
     } else if (f == "mult") {
-        brightenMult(props, s)
+        brightenMult(imx, s)
+        console.log('Brightened.')
     } else {
         console.error('Error: brighten function should be either \"sum\" or \"mult\"')
     }
-    draw(props.c, props.imx)
 }
 
 module.exports = brighten

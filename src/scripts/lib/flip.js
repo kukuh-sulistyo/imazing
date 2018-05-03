@@ -1,21 +1,22 @@
-const draw = require('./draw.js')
-
 /**
- * Apply fliping based direction
+ * Apply fliping based on direction
  * "h" for horizontal and "v" for vertical
  * 
- * @param {*} props 
- * @param {String} direction 
+ * @param {ndarray} imx 
+ * @param {String} d direction
+ * @return {ndarray} flipped image matrix
  */
-const flip = (props, direction) =>  {
-    if (direction == "h") {
-        props.imx = props.imx.step(-1)
-    } else if (direction == "v") {
-        props.imx = props.imx.step(1, -1)
+const flip = (imx, d) =>  {
+    let flippedImx = null
+    if (d == "h") {
+        flippedImx = imx.step(-1)
+    } else if (d == "v") {
+        flippedImx = imx.step(1, -1)
     } else {
         console.error("You must specify flip direction, either \"h\" for horizontal or \"v\" for vertical")
     }
-    draw(props.c, props.imx)
+    console.log('Flipped.')
+    return flippedImx
 }
 
 module.exports = flip

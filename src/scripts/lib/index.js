@@ -5,6 +5,7 @@ const read = require('./read.js')
 const grayscale = require('./grayscale.js')
 const brighten = require('./brighten.js')
 const inverse = require('./inverse.js')
+const threshold = require('./threshold.js')
 const flip = require('./flip.js')
 const crop = require('./crop.js')
 const rotate = require('./rotate.js')
@@ -19,7 +20,6 @@ const erotionBinary = require('./erotion.js').erotionBinary
 const filterBlur = require('./filter.js').blur
 const filterSharp = require('./filter.js').sharp
 const filterSobel = require('./filter.js').sobel
-const threshold = require('./threshold.js')
 const coba = require('./coba.js')
 
 // Imazing property
@@ -29,7 +29,6 @@ let props = {
     c: null, // {<canvas>} canvas
     i: null, // {<input type="file">},
     hC: null // {<canvas>} histograms's canvas
-
 }
 
 /**
@@ -49,62 +48,105 @@ const expose = {
     },
     reset: function() {
         draw(props.c, props.oimx, props.ctx)
-        props.imx = read(props)
+        props.imx = read(props.c)
     },
     grayscale: function() {
-        grayscale(props)
+        let imx = grayscale(props.imx)
+        draw(props.c, imx)
+        props.imx = read(props.c)
     },
-    brighten: function(f = "sum", s) {
-        brighten(props, f, s)
+    brighten: function(f="sum", s) {
+        brighten(props.imx, s, f)
+        draw(props.c, props.imx)
     },
     inverse: function() {
-        inverse(props)
+        inverse(props.imx)
+        draw(props.c, props.imx)
     },
-    flip: function(d = "h") {
-        flip(props, d)
+    threshold: function(threshold=127) {
+        let imx = threshold(props.imx, threshold)
+        draw(props.c, imx)
+        props.imx = read(props.c)
+    },
+    flip: function(d="h") {
+        let imx = flip(props.imx, d)
+        draw(props.c, imx)
+        props.imx = read(props.c)
     },
     crop: function(startX, startY, w, h) {
-        crop(props, startX, startY, w, h)
+        startX = startX ? startX : 0
+        startY = startY ? startY : 0
+        w = w ? w : 100
+        h = h ? h : 100
+        let imx = crop(props.imx, startX, startY, w, h)
+        // console.log(imx.data.length)
+        draw(props.c, imx)
+        props.imx = read(props.c)
     },
     rotate: function(deg) {
-        rotate(props, 90)
+        let imx = rotate(props.imx, deg)
+        draw(props.c, imx)
+        props.imx = read(props.c)
     },
     scaleUp: function(scale) {
-        scaleUp(props, scale)
+        let imx = scaleUp(props.imx, scale)
+        draw(props.c, imx)
+        props.imx = read(props.c)
     },
     scaleDown: function(scale) {
-        scaleDown(props)
+        let imx = scaleDown(props.imx)
+        draw(props.c, imx)
+        props.imx = read(props.c)
     },
     histogram: function() {
         histogram(props.imx, props.hC)
     },
     noiseReduction: function(type) {
-        noiseReduction(props, type)
+        let imx = noiseReduction(props.imx, type)
+        draw(props.c, imx)
+        props.imx = read(props.c)
     },
     dilationGrayscale: function() {
-        dilationGrayscale(props)
+        let imx = dilationGrayscale(props.imx)
+        draw(props.c, imx)
+        props.imx = read(props.c)
     },
     dilationBinary: function() {
-        dilationBinary(props)
+        let imx = dilationBinary(props.imx)
+        draw(props.c, imx)
+        props.imx = read(props.c)
     },
     erotionGrayscale: function() {
-        erotionGrayscale(props)
+        let imx = erotionGrayscale(props.imx)
+        draw(props.c, imx)
+        props.imx = read(props.c)
     },
     erotionBinary: function() {
-        erotionBinary(props)
+        let imx = erotionBinary(props.imx)
+        draw(props.c, imx)
+        props.imx = read(props.c)
     },
     filterBlur: function() {
-        filterBlur(props)
+        let imx = filterBlur(props.imx)
+        draw(props.c, imx)
+        props.imx = read(props.c)
     },
     filterSharp: function() {
-        filterSharp(props)
+        let imx = filterSharp(props.imx)
+        draw(props.c, imx)
+        props.imx = read(props.c)
     },
     filterSobel: function() {
-        filterSobel(props)
+        let imx = filterSobel(props.imx)
+        draw(props.c, imx)
+        props.imx = read(props.c)
     },
-    coba: function() {
-        filterSharp(props)
-    }
+    coba: function(t=127) {
+        let imx = threshold(props.imx, t)
+        console.log(imx)
+        draw(props.c, imx)
+        props.imx = read(props.c)
+    },
 }
 module.exports = expose;
 

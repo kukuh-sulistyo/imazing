@@ -1,5 +1,3 @@
-const draw = require('./draw.js')
-const read = require('./read.js')
 const ndarray = require('ndarray')
 const grayscale = require('./grayscale.js')
 const threshold = require('./threshold.js')
@@ -14,37 +12,36 @@ const threshold = require('./threshold.js')
  * | 255, 255, 255 |
  * | 255, 255, 255 |
  * 
- * @param {*} props 
+ * @param {ndarray} imx 
+ * @return {ndarray} grayscale dilated image matrix
  */
-const dilationGrayscale = (props) => {
+const dilationGrayscale = imx => {
     // Convert to grayscale
-    grayscale(props)
+    let grayscalledImx = grayscale(imx)
 
-    let dilatedImx = new ndarray(new Uint8Array(props.imx.data.length), props.imx.shape, props.imx.stride, 0)
-    let fSize = 3 // dimension structuring element 
+    let dilatedImx = new ndarray(new Uint8Array(grayscalledImx.data.length), grayscalledImx.shape, grayscalledImx.stride, 0)
+    let fSize = 3 // dimension of structuring element 
     let halfFSize = Math.floor(fSize/2)
     let neighbors, result
     
     for (let x = 0; x < dilatedImx.shape[0]; x++) {
         for (let y = 0; y < dilatedImx.shape[1]; y++) {
-            for (let z = 0; z < 3; z++) {
-                // get neighbors pixel
-                neighbors = []
-                for (let xF = 0; xF < fSize; xF++) {
-                    for (let yF = 0; yF < fSize; yF++) {
-                        neighbors.push(props.imx.get(x+xF-halfFSize, y+yF-halfFSize, z) || 0)
-                    }
+            // get neighbors pixel
+            neighbors = []
+            for (let xF = 0; xF < fSize; xF++) {
+                for (let yF = 0; yF < fSize; yF++) {
+                    neighbors.push(grayscalledImx.get(x+xF-halfFSize, y+yF-halfFSize) || 0)
                 }
-                // get max value
-                result = Math.max(...neighbors)
-                dilatedImx.set(x, y, z, result)
             }
-            dilatedImx.set(x, y, 3, 255)
+            // get max value
+            result = Math.max(...neighbors)
+            // put max pixel into dilatedImx
+            dilatedImx.set(x, y, result)
         }
     }
-    draw(props.c, dilatedImx)
-    props.imx = read(props)
-    console.log('image has been dilated')
+    
+    console.log('Grayscale Dilated.')
+    return dilatedImx
 }
 
 /**
@@ -56,36 +53,36 @@ const dilationGrayscale = (props) => {
  * | 255, 255, 255 |
  * | 255, 255, 255 |
  * | 255, 255, 255 |
- * 
- * @param {*} props 
+ *   
+ * @param {ndarray} imx 
+ * @return {ndarray} binary dilated image matrix
  */
-const dilationBinary = (props) => {
-    threshold(props, 127)
-    let dilatedImx = new ndarray(new Uint8Array(props.imx.data.length), props.imx.shape, props.imx.stride, 0)
-    let fSize = 3 // dimension structuring element 
+const dilationBinary = imx => {
+    // Convert to binary image
+    let thresholdedImx = threshold(imx, 127)
+
+    let dilatedImx = new ndarray(new Uint8Array(thresholdedImx.data.length), thresholdedImx.shape, thresholdedImx.stride, 0)
+    let fSize = 3 // dimension of structuring element 
     let halfFSize = Math.floor(fSize/2)
     let neighbor, result
     
     for (let x = 0; x < dilatedImx.shape[0]; x++) {
         for (let y = 0; y < dilatedImx.shape[1]; y++) {
-            for (let z = 0; z < 3; z++) {
-                // get dilated
-                result = 0
-                for (let xF = 0; xF < fSize; xF++) {
-                    for (let yF = 0; yF < fSize; yF++) {
-                        neighbor = (props.imx.get(x+xF-halfFSize, y+yF-halfFSize, z) || 0)
-                        result = result || (neighbor || 0)
-                    }
+            // get dilated pixel
+            result = 0
+            for (let xF = 0; xF < fSize; xF++) {
+                for (let yF = 0; yF < fSize; yF++) {
+                    neighbor = (thresholdedImx.get(x+xF-halfFSize, y+yF-halfFSize) || 0)
+                    result = result || (neighbor || 0)
                 }
-                // set dilated pixel
-                dilatedImx.set(x, y, z, result)
             }
-            dilatedImx.set(x, y, 3, 255)
+            // put dilated pixel into dilatedImx
+            dilatedImx.set(x, y, result)
         }
     }
-    draw(props.c, dilatedImx)
-    props.imx = read(props)
-    console.log('image has been dilated')
+
+    console.log('Binary Dilated.')
+    return dilatedImx
 }
 
 module.exports = {

@@ -1,6 +1,4 @@
 const ndarray = require('ndarray')
-const draw = require('./draw.js')
-const read = require('./read.js')
 
 /**
  * Get mean of array of 9 number
@@ -48,11 +46,12 @@ const getModus = arr => {
  * Apply filter
  * Using 3x3 neighbors matrix
  * 
- * @param {*} props 
+ * @param {ndarray} imx 
  * @param {String} type 
+ * @return {ndarray} filtered image matrix
  */
-const doNoiseReduction = (props, type="mean") => {
-    let filteredImx = new ndarray(new Uint8Array(props.imx.data.length), props.imx.shape, props.imx.stride, 0)
+const doNoiseReduction = (imx, type) => {
+    let filteredImx = new ndarray(new Uint8Array(imx.data.length), imx.shape, imx.stride, 0)
     let fSize = 3
     let halfFSize = Math.floor(fSize/2)
     let neighbors, result, filterFunction
@@ -74,7 +73,7 @@ const doNoiseReduction = (props, type="mean") => {
                 result = 0
                 for (let xF = 0; xF < fSize; xF++) {
                     for (let yF = 0; yF < fSize; yF++) {
-                        neighbors.push(props.imx.get(x+xF-halfFSize, y+yF-halfFSize, z) || 0)
+                        neighbors.push(imx.get(x+xF-halfFSize, y+yF-halfFSize, z) || 0)
                     }
                 }
                 // result = Math.floor(neighbors.reduce((acc, val) => acc + val) / 9)
@@ -84,9 +83,9 @@ const doNoiseReduction = (props, type="mean") => {
             filteredImx.set(x, y, 3, 255)
         }
     }
-    draw(props.c, filteredImx)
-    props.imx = read(props)
-    console.log('noise reducted')
+
+    console.log('Noise Reducted')
+    return filteredImx
 }
 
 module.exports = doNoiseReduction

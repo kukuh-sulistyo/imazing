@@ -1,6 +1,4 @@
 const ndarray = require('ndarray')
-const draw = require('./draw.js')
-const read = require('./read.js')
 
 /**
  * Apply filter (image convolution)
@@ -40,13 +38,13 @@ const doFilter = (imx, filter) => {
  * | 1/9 1/9 1/9 |
  * | 1/9 1/9 1/9 |
  * 
- * @param {*} props 
+ * @param {ndarray} imx 
+ * @return {ndarray} blur filtered image matrix
  */
-const filterBlur = props => {
+const filterBlur = imx => {
     const filter = new ndarray(new Array(1/9, 1/9, 1/9, 1/9, 1/9, 1/9, 1/9, 1/9, 1/9), [3, 3])
-    const i = doFilter(props.imx, filter)
-    draw(props.c, i)
-    props.imx = read(props)
+    console.log('Blur Filtered.')
+    return doFilter(imx, filter)
 }
 
 /**
@@ -56,13 +54,13 @@ const filterBlur = props => {
  * |  0  0  0 |
  * |  1  2  1 |
  * 
- * @param {*} props 
+ * @param {ndarray} imx 
+ * @return {ndarray} blur filtered image matrix
  */
-const filterSharp = props => {
+const filterSharp = imx => {
     const filter = new ndarray(new Array(0, -1, 0, -1, 5, -1, 0, -1, 0), [3, 3])
-    const i = doFilter(props.imx, filter)
-    draw(props.c, i)
-    props.imx = read(props)
+    console.log('Sharp Filtered.')
+    return doFilter(imx, filter)
 }
 
 /**
@@ -72,15 +70,14 @@ const filterSharp = props => {
  * |  0  0  0 |
  * |  1  2  1 |
  * 
- * @param {*} props 
+ * @param {ndarray} imx 
+ * @return {ndarray} blur filtered image matrix
  */
-const filterSobel = props => {
+const filterSobel = imx => {
     const filter = new ndarray(new Array(-1, -2, -1, 0, 0, 0, 1, 2, 1), [3, 3])
-    const i = doFilter(props.imx, filter)
-    draw(props.c, i)
-    props.imx = read(props)
+    console.log('Sobel Filtered.')
+    return doFilter(imx, filter)
 }
-
 
 module.exports = {
     sharp: filterSharp,

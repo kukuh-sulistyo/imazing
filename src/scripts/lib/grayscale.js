@@ -1,8 +1,5 @@
-// vendor
 const cwise = require('cwise')
 const ndarray = require('ndarray')
-const draw = require('./draw.js')
-const read = require('./read.js')
 
 const cwiseGrayscale = cwise({
     args: ["array", "array", "array", "array"],
@@ -13,18 +10,27 @@ const cwiseGrayscale = cwise({
 
 /**
  * Apply grayscale with cwiseGrayscale
+ * Returning 2d image matrix
  * 
- * @param {*} props 
+ * @param {ndarray} imx 
+ * @return {ndarray} grayscaled image matrix
  */
-const grayscale = props => {
-    let w = props.imx.shape[0]
-    let h = props.imx.shape[1]
-    let imx = new ndarray(new Uint8Array(w*h), [w, h])
-    let r = props.imx.pick(null, null, 0),
-        g = props.imx.pick(null, null, 1),
-        b = props.imx.pick(null, null, 2)
-    cwiseGrayscale(imx, r, g, b)
-    draw(props.c, imx)
-    props.imx = read(props)
+const grayscale = imx => {
+    // check if already grascalled
+    if (imx.shape.length == 2) {
+        return imx
+    } 
+
+    let w = imx.shape[0]
+    let h = imx.shape[1]
+    let grayscalledImx = new ndarray(new Uint8Array(w*h), [w, h])
+    let r = imx.pick(null, null, 0),
+    g = imx.pick(null, null, 1),
+    b = imx.pick(null, null, 2)
+    cwiseGrayscale(grayscalledImx, r, g, b)
+    
+    console.log('Grayscalled.')
+    return grayscalledImx        
 }
-module.exports =  grayscale
+
+module.exports = grayscale
