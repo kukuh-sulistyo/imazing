@@ -20,7 +20,6 @@ const erotionBinary = require('./erotion.js').erotionBinary
 const filterBlur = require('./filter.js').blur
 const filterSharp = require('./filter.js').sharp
 const filterSobel = require('./filter.js').sobel
-const coba = require('./coba.js')
 
 // Imazing property
 let props = {
