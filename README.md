@@ -1,2 +1,2 @@
 # imazing
-Browser-ready image manipulation library, in Javascript
+Browser-ready image processing library, in Javascript
